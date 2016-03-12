@@ -17,9 +17,9 @@ using Windows.UI.Xaml.Navigation;
 
 namespace SmartMoney
 {
-    public sealed partial class WelcomeScreen : UserControl
+    public sealed partial class AddAccountView : UserControl
     {
-        public WelcomeScreen()
+        public AddAccountView()
         {
             this.InitializeComponent();
         }

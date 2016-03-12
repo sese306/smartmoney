@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="SmartMoney.WelcomeScreen"
+    x:Class="SmartMoney.WelcomeScreenView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -16,7 +16,7 @@
         </Grid.RowDefinitions>
         <StackPanel HorizontalAlignment="Center">
             <TextBlock TextAlignment="Center" FontSize="60">Welcome</TextBlock>
-            <Button>Add Account</Button>
+            <Button x:Name="AddAccount">Add Account</Button>
         </StackPanel>
     </Grid>
 </UserControl>

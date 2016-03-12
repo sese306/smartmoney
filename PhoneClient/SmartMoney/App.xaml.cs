@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.UI.Xaml.Controls;
 using Caliburn.Micro;
 
 namespace SmartMoney
@@ -21,7 +20,9 @@ namespace SmartMoney
             _container = new WinRTContainer();
             _container.RegisterWinRTServices();
 
-            //TODO: Register your view models at the container
+            _container.PerRequest<ShellViewModel>();
+            _container.PerRequest<AddAccountViewModel>();
+            _container.PerRequest<WelcomeScreenViewModel>();
         }
 
         protected override object GetInstance(Type service, string key)
@@ -42,17 +43,12 @@ namespace SmartMoney
             _container.BuildUp(instance);
         }
 
-        protected override void PrepareViewFirst(Frame rootFrame)
-        {
-            _container.RegisterNavigationService(rootFrame);
-        }
-
         protected override void OnLaunched(LaunchActivatedEventArgs args)
         {
             if (args.PreviousExecutionState == ApplicationExecutionState.Running)
                 return;
 
-            DisplayRootView<MainPage>();
+            DisplayRootViewFor<ShellViewModel>();
         }
 
         protected override void OnSuspending(object sender, SuspendingEventArgs e)
