@@ -23,6 +23,7 @@ namespace SmartMoney
             _container.PerRequest<ShellViewModel>();
             _container.PerRequest<AddAccountViewModel>();
             _container.PerRequest<WelcomeScreenViewModel>();
+            _container.PerRequest<OverviewViewModel>();
         }
 
         protected override object GetInstance(Type service, string key)
