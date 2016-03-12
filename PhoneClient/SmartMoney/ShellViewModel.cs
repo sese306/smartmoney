@@ -5,18 +5,22 @@ using SmartMoney.Models;
 
 namespace SmartMoney
 {
-    public class ShellViewModel : Conductor<Screen>.Collection.OneActive, IHandle<ShowAddAccountMessage>
+    public class ShellViewModel : Conductor<Screen>, IHandle<ShowAddAccountMessage>, 
+        IHandle<ShowOverviewScreenMessage>
     {
         private readonly WelcomeScreenViewModel _welcomeScreenViewModel;
         private readonly AddAccountViewModel _addAccountViewModel;
+        private readonly OverviewViewModel _overviewViewModel;
 
         public ShellViewModel(
             WelcomeScreenViewModel welcomeScreenViewModel, 
             AddAccountViewModel addAccountViewModel,
+            OverviewViewModel overviewViewModel,            
             IEventAggregator eventAggregator)
         {
             _welcomeScreenViewModel = welcomeScreenViewModel;
             _addAccountViewModel = addAccountViewModel;
+            _overviewViewModel = overviewViewModel;
             eventAggregator.Subscribe(this);
         }
 
@@ -39,6 +43,11 @@ namespace SmartMoney
         public void Handle(ShowAddAccountMessage message)
         {
             ActivateItem(_addAccountViewModel);
+        }
+
+        public void Handle(ShowOverviewScreenMessage message)
+        {
+            ActivateItem(_overviewViewModel);
         }
     }
 }
