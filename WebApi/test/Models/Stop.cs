@@ -9,5 +9,9 @@ namespace test.Models
         public Guid UserId { get; set; }
         public Guid Id { get; set; }
         public int Duration { get; set; }
+        /*public Stop()
+        {
+            Id = Guid.NewGuid();
+        }*/
     }
 }
