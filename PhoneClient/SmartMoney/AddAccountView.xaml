@@ -4,17 +4,20 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converters="using:SmartMoney.Converters"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
-
+    <UserControl.Resources>
+        <converters:DecimalConverter x:Name="DecimalConverter"/>
+    </UserControl.Resources>
     <Grid VerticalAlignment="Center">
         <StackPanel HorizontalAlignment="Stretch">
             <TextBlock FontSize="20">Add Your First Account</TextBlock>
-            <ComboBox Name="Type"></ComboBox>
-            <TextBox Name="Nume"></TextBox>
-            <TextBox Name="Sold"></TextBox>
-            <Button>Save</Button>
+            <ComboBox ItemsSource="{Binding Path=AccountTypes}" SelectedValue="{Binding Path=Account.Type, Mode=TwoWay}"/>
+                <TextBox x:Name="Account_Name"></TextBox>
+            <TextBox Text="{Binding Path=Account.Balance, Mode=TwoWay, Converter={StaticResource DecimalConverter}}"></TextBox>
+            <Button x:Name="Save">Save</Button>
         </StackPanel>
     </Grid>
 </UserControl>
