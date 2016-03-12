@@ -1,81 +1,61 @@
 ﻿using System;
+using System.Collections.Generic;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media.Animation;
-using Windows.UI.Xaml.Navigation;
+using Caliburn.Micro;
 
 namespace SmartMoney
 {
     public sealed partial class App
     {
-        private TransitionCollection _transitions;
+        private WinRTContainer _container;
 
         public App()
         {
             InitializeComponent();
-            Suspending += OnSuspending;
         }
 
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        protected override void Configure()
         {
-#if DEBUG
-            if (System.Diagnostics.Debugger.IsAttached)
-            {
-                DebugSettings.EnableFrameRateCounter = true;
-            }
-#endif
+            _container = new WinRTContainer();
+            _container.RegisterWinRTServices();
 
-            var rootFrame = Window.Current.Content as Frame;
-
-            if (rootFrame == null)
-            {
-                rootFrame = new Frame
-                {
-                    CacheSize = 1,
-                    Language = Windows.Globalization.ApplicationLanguages.Languages[0]
-                };
-
-                if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
-                {
-                    // TODO: Load state from previously suspended application
-                }
-
-                Window.Current.Content = rootFrame;
-            }
-
-            if (rootFrame.Content == null)
-            {
-                if (rootFrame.ContentTransitions != null)
-                {
-                    _transitions = new TransitionCollection();
-                    foreach (var c in rootFrame.ContentTransitions)
-                    {
-                        _transitions.Add(c);
-                    }
-                }
-
-                rootFrame.ContentTransitions = null;
-                rootFrame.Navigated += RootFrame_FirstNavigated;
-
-                if (!rootFrame.Navigate(typeof(MainPage), e.Arguments))
-                {
-                    throw new Exception("Failed to create initial page");
-                }
-            }
-
-            Window.Current.Activate();
+            //TODO: Register your view models at the container
         }
 
-        private void RootFrame_FirstNavigated(object sender, NavigationEventArgs e)
+        protected override object GetInstance(Type service, string key)
         {
-            var rootFrame = sender as Frame;
-            rootFrame.ContentTransitions = _transitions ?? new TransitionCollection() { new NavigationThemeTransition() };
-            rootFrame.Navigated -= RootFrame_FirstNavigated;
+            var instance = _container.GetInstance(service, key);
+            if (instance != null)
+                return instance;
+            throw new Exception("Could not locate any instances.");
         }
 
-        private static void OnSuspending(object sender, SuspendingEventArgs e)
+        protected override IEnumerable<object> GetAllInstances(Type service)
+        {
+            return _container.GetAllInstances(service);
+        }
+
+        protected override void BuildUp(object instance)
+        {
+            _container.BuildUp(instance);
+        }
+
+        protected override void PrepareViewFirst(Frame rootFrame)
+        {
+            _container.RegisterNavigationService(rootFrame);
+        }
+
+        protected override void OnLaunched(LaunchActivatedEventArgs args)
+        {
+            if (args.PreviousExecutionState == ApplicationExecutionState.Running)
+                return;
+
+            DisplayRootView<MainPage>();
+        }
+
+        protected override void OnSuspending(object sender, SuspendingEventArgs e)
         {
             var deferral = e.SuspendingOperation.GetDeferral();
 
