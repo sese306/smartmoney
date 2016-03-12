@@ -10,5 +10,9 @@ namespace test.Models
         public decimal Amount { get; set; }
         public Guid StopId { get; set; }
         public Guid CategoryId { get; set; }
+        public Transaction()
+        {
+            Id = Guid.NewGuid();
+        }
     }
 }

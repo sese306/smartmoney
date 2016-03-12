@@ -6,6 +6,9 @@ namespace test.Models
     {
         public string Name { get; set; }
         public Guid Id { get; set; }
-
+        /*public Category()
+        {
+            Id = Guid.NewGuid();
+        }*/
     }
 }
