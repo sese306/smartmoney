@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 using test.Models;
 
@@ -7,34 +8,36 @@ namespace test.Controllers
 {
     public class AccountsController : ApiController
     {
-        // GET api/<controller>
-        public IEnumerable<Account> Get()
+        public IEnumerable<Account> Get(Guid userId)
         {
-            return new Account[] {};
+            var dbContext = new SmartMoneyDbContext();
+            return dbContext.Accounts.Where(account => account.UserId == userId).ToArray();
         }
 
-        // GET api/users/userId/accounts/id
         [HttpGet]
-        public Account Get(Guid userId, Guid id )
+        public Account Get(Guid userId, Guid id)
         {
-            return new Account
-            {
-                Balance = 12.4m,
-                Id = Guid.NewGuid(),
-                Type = 0,
-                UserId = userId
-            };
+            var dbContext = new SmartMoneyDbContext();
+            var account = dbContext.Accounts.FirstOrDefault(a => a.UserId == userId && a.Id == id);
+           
+            return account;
         }
 
-        // PUT api/<controller>/5
+        [HttpPut]
         public void Put([FromBody]Account account)
         {
-
+            var dbContext = new SmartMoneyDbContext();
+            dbContext.Accounts.Attach(account);
+            dbContext.SaveChanges();
         }
 
-        public Account Create(Account account)
+        [HttpPost]
+        public Account Create([FromBody]Account account)
         {
-            account.Id = Guid.NewGuid();
+            var dbContext = new SmartMoneyDbContext();
+            dbContext.Accounts.Add(account);
+            dbContext.SaveChanges();
+
             return account;
         }
     }

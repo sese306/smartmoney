@@ -6,15 +6,22 @@ namespace test.Controllers
 {
     public class StopsController : ApiController
     {
-        // PUT api/<controller>/5
-        public void Put([FromBody]Stop stop)
+        [HttpPost]
+        public Stop Create([FromBody]Stop stop)
         {
+            var dbContext = new SmartMoneyDbContext();
+            dbContext.Stops.Add(stop);
+            dbContext.SaveChanges();
+
+            return stop;
         }
 
-        public Stop Create(Stop stop)
+        [HttpPut]
+        public void Put([FromBody]Stop stop)
         {
-            stop.Id = Guid.NewGuid();
-            return stop;
+            var dbContext = new SmartMoneyDbContext();
+            dbContext.Stops.Attach(stop);
+            dbContext.SaveChanges();
         }
     }
 }

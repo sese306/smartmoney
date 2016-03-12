@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Data.Spatial;
+using System.Data.Entity.Spatial;
 
 namespace test.Models
 {
