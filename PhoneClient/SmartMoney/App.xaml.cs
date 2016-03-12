@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Caliburn.Micro;
+using Refit;
 using SmartMoney.SmartmoneyAPI;
 
 namespace SmartMoney
@@ -10,6 +11,7 @@ namespace SmartMoney
     public sealed partial class App
     {
         private WinRTContainer _container;
+        private IUsersApi _usersApi;
 
         public App()
         {
@@ -26,10 +28,8 @@ namespace SmartMoney
             _container.PerRequest<WelcomeScreenViewModel>();
             _container.PerRequest<OverviewViewModel>();
             _container.PerRequest<AccountDetailsViewModel>();
-            _container.RegisterHandler(typeof(IUsersApi), "UsersApi", (container) =>
-            {
-                return null;
-            });
+            _container.RegisterHandler(typeof (IUsersApi), "UsersApi",
+                container => _usersApi ?? (_usersApi = RestService.For<IUsersApi>("http://localhost:60113/")));
         }
 
         protected override object GetInstance(Type service, string key)

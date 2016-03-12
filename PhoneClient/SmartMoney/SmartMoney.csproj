@@ -106,6 +106,7 @@
     <Compile Include="Messages\ShowAddAccountMessage.cs" />
     <Compile Include="Messages\ShowOverviewScreenMessage.cs" />
     <Compile Include="Messages\ShowAccountDetailsMessage.cs" />
+    <Compile Include="SmartmoneyAPI\UsersApi.cs" />
     <Compile Include="WelcomeScreenView.xaml.cs">
       <DependentUpon>WelcomeScreenView.xaml</DependentUpon>
     </Compile>
