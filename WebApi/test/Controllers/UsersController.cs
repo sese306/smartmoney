@@ -4,12 +4,15 @@ using test.Models;
 
 namespace test.Controllers
 {
-    public class UsesrController : ApiController
+    public class UsersController : ApiController
     {
-        //CREATEUser
-        public User CreateUser(User user)
+        [HttpPost]
+        public User Create([FromBody]User user)
         {
-            user.Id = Guid.NewGuid();
+            var dbContext = new SmartMoneyDbContext();
+            dbContext.Users.Add(user);
+            dbContext.SaveChanges();
+
             return user;
         }
     }

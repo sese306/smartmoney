@@ -7,5 +7,10 @@ namespace test.Models
         public Guid Id { get; set; }
 
         public string Email { get; set; }
+
+        public User()
+        {
+            Id = Guid.NewGuid();
+        }
     }   
 }
