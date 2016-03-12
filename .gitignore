@@ -32,3 +32,4 @@ WebApi/test/Content/*
 WebApi/test/Images/*
 WebApi/test/Scripts/*
 PhoneClient/SmartMoney/packages/*
+JobRunner/SmartMoneyJobRunner/packages/*
