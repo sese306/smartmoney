@@ -28,6 +28,7 @@ namespace SmartMoney
 
         public void ShowDetails(Account account)
         {
+            _eventAggregator.PublishOnUIThread(new ShowAccountDetailsMessage(account));
         }
     }
 }

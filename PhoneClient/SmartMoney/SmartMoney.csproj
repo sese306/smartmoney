@@ -79,6 +79,10 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AccountDetailsView.xaml.cs">
+      <DependentUpon>AccountDetailsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AccountDetailsViewModel.cs" />
     <Compile Include="AddAccountView.xaml.cs">
       <DependentUpon>AddAccountView.xaml</DependentUpon>
     </Compile>
@@ -101,6 +105,7 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Messages\ShowAddAccountMessage.cs" />
     <Compile Include="Messages\ShowOverviewScreenMessage.cs" />
+    <Compile Include="Messages\ShowAccountDetailsMessage.cs" />
     <Compile Include="WelcomeScreenView.xaml.cs">
       <DependentUpon>WelcomeScreenView.xaml</DependentUpon>
     </Compile>
@@ -124,6 +129,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="AccountDetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="AddAccountView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
