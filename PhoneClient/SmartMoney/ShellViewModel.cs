@@ -64,7 +64,7 @@ namespace SmartMoney
             User user = null;
             if (localSettings.Values.ContainsKey(UserIdKey))
             {
-                user = new User { Id = Guid.Parse(localSettings.Values[UserIdKey].ToString())};
+                user = new User { Id = Guid.Parse(localSettings.Values[UserIdKey].ToString()) };
             }
 
             return Task.Run(() => user);

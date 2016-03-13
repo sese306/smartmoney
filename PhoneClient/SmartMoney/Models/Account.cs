@@ -11,6 +11,8 @@ namespace SmartMoney.Models
         public AccountType Type { get; set; }
 
         public decimal Balance { get; set; }
+        
+        public Guid UserId { get; set; }
 
         public Account()
         {

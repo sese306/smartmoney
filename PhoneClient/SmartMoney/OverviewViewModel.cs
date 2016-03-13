@@ -29,7 +29,6 @@ namespace SmartMoney
         public OverviewViewModel(IEventAggregator eventAggregator, IAccountsApi accountsApi,
             SessionService sessionService)
         {
-            if (accountsApi == null) throw new ArgumentNullException(nameof(accountsApi));
             _eventAggregator = eventAggregator;
             _accountsApi = accountsApi;
             _sessionService = sessionService;
@@ -43,7 +42,7 @@ namespace SmartMoney
         protected override async void OnActivate()
         {
             base.OnActivate();
-            Accounts = (await _accountsApi.Get(_sessionService.Currentuser.Id)).ToList();
+            Accounts = (await _accountsApi.GetAllAccounts(_sessionService.Currentuser.Id)).ToList();
         }
 
         public void AddAccount()

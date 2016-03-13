@@ -4,11 +4,39 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:micro="using:Caliburn.Micro"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
-    
-    <Grid>
 
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="Overview" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="20"/>
+        <Grid Grid.Row="1" HorizontalAlignment="Stretch" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="100"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock TextAlignment="Left" FontSize="15" Grid.Column="0" Text="Ora"/>
+            <TextBlock TextAlignment="Right" FontSize="15" Grid.Column="1" Text="Suma"/>
+        </Grid>
+        <ItemsControl Grid.Row="2" x:Name="Transactions" ItemsSource="{Binding Path=Transactions}" HorizontalContentAlignment="Stretch">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock TextAlignment="Left" VerticalAlignment="Center" FontSize="15" Grid.Column="0" Text="{Binding Path=Timestamp}"/>
+                        <TextBlock TextAlignment="Right" VerticalAlignment="Center" FontSize="15" Grid.Column="1" Text="{Binding Path=Amount}"/>
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </Grid>
 </UserControl>

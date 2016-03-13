@@ -12,6 +12,9 @@ namespace SmartMoney
     {
         private WinRTContainer _container;
         private IUsersApi _usersApi;
+        private ITransactionsApi _transactionsApi;
+        private IStopsApi _stopsApi;
+        private IAccountsApi _accountsApi;
 
         public App()
         {
@@ -31,6 +34,12 @@ namespace SmartMoney
             _container.Singleton<SessionService>();
             _container.RegisterHandler(typeof (IUsersApi), "UsersApi",
                 container => _usersApi ?? (_usersApi = RestService.For<IUsersApi>("http://localhost:60113/")));
+            _container.RegisterHandler(typeof(ITransactionsApi), "TransactionsApi",
+                container => _transactionsApi ?? (_transactionsApi = RestService.For<ITransactionsApi>("http://localhost:60113/")));
+            _container.RegisterHandler(typeof(IStopsApi), "StopsApi",
+                container => _stopsApi ?? (_stopsApi = RestService.For<IStopsApi>("http://localhost:60113/")));
+            _container.RegisterHandler(typeof(IAccountsApi), "AccountsApi",
+                container => _accountsApi ?? (_accountsApi = RestService.For<IAccountsApi>("http://localhost:60113/")));
         }
 
         protected override object GetInstance(Type service, string key)

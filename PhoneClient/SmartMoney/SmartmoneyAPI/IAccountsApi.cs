@@ -9,10 +9,10 @@ namespace SmartMoney.SmartmoneyAPI
     public interface IAccountsApi
     {
         [Get("/accounts")]
-        Task<IEnumerable<Account>> Get(Guid userId);
+        Task<IEnumerable<Account>> GetAllAccounts(Guid userId);
 
         [Get("/accounts")]
-        Task<Account> Get(Guid userId, Guid id);
+        Task<Account> GetAccount(Guid userId, Guid id);
 
         [Put("/accounts")]
         Task<string> Update(Account account);
