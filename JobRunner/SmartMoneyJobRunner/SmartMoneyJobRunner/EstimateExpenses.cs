@@ -5,6 +5,7 @@ namespace SmartMoneyJobRunner
 {
     public class EstimateExpenses
     {
+        private const int SameLocationRadios = 5;
         private readonly SmartMoneyDbContext _smartMoneyDbContext;
 
         public EstimateExpenses()
@@ -29,7 +30,7 @@ namespace SmartMoneyJobRunner
         {
             var estimation = new Estimation { StopId = stop.Id };
             var similarStops =
-                _smartMoneyDbContext.Stops.Where(otherStop => otherStop.Location == stop.Location).ToList();
+                _smartMoneyDbContext.Stops.Where(otherStop => otherStop.Location.Distance(stop.Location) < SameLocationRadios).ToList();
             var similarStopIds = similarStops.Select(similarStop =>similarStop.Id).ToArray();
             var transactions =
                 _smartMoneyDbContext.Transactions.Where(transaction => similarStopIds.Contains(transaction.StopId))
