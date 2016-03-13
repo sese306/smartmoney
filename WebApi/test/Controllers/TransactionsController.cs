@@ -1,4 +1,7 @@
-﻿using System.Web.Http;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Http;
 using test.Models;
 
 namespace test.Controllers
@@ -13,6 +16,13 @@ namespace test.Controllers
             dbContext.SaveChanges();
 
             return transaction;
+        }
+
+        [HttpGet]
+        public IEnumerable<Transaction> Get(Guid accountId)
+        {
+            var dbContext = new SmartMoneyDbContext();
+            return dbContext.Transactions.Where(transaction => transaction.AccountId == accountId).ToArray();
         }
     }
 }

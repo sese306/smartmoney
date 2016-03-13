@@ -8,6 +8,7 @@ namespace test.Controllers
 {
     public class AccountsController : ApiController
     {
+        [HttpGet]
         public IEnumerable<Account> Get(Guid userId)
         {
             var dbContext = new SmartMoneyDbContext();
