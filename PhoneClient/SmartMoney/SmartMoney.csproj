@@ -93,10 +93,13 @@
     <Compile Include="Converters\DecimalConverter.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\AccountType.cs" />
+    <Compile Include="Models\Stop.cs" />
+    <Compile Include="Models\Transaction.cs" />
     <Compile Include="OverviewView.xaml.cs">
       <DependentUpon>OverviewView.xaml</DependentUpon>
     </Compile>
     <Compile Include="OverviewViewModel.cs" />
+    <Compile Include="SessionService.cs" />
     <Compile Include="ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>
@@ -106,7 +109,10 @@
     <Compile Include="Messages\ShowAddAccountMessage.cs" />
     <Compile Include="Messages\ShowOverviewScreenMessage.cs" />
     <Compile Include="Messages\ShowAccountDetailsMessage.cs" />
-    <Compile Include="SmartmoneyAPI\UsersApi.cs" />
+    <Compile Include="SmartmoneyAPI\IAccountsApi.cs" />
+    <Compile Include="SmartmoneyAPI\IStopsApi.cs" />
+    <Compile Include="SmartmoneyAPI\ITransactionsApi.cs" />
+    <Compile Include="SmartmoneyAPI\IUsersApi.cs" />
     <Compile Include="WelcomeScreenView.xaml.cs">
       <DependentUpon>WelcomeScreenView.xaml</DependentUpon>
     </Compile>

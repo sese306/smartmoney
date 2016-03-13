@@ -28,6 +28,7 @@ namespace SmartMoney
             _container.PerRequest<WelcomeScreenViewModel>();
             _container.PerRequest<OverviewViewModel>();
             _container.PerRequest<AccountDetailsViewModel>();
+            _container.Singleton<SessionService>();
             _container.RegisterHandler(typeof (IUsersApi), "UsersApi",
                 container => _usersApi ?? (_usersApi = RestService.For<IUsersApi>("http://localhost:60113/")));
         }

@@ -10,13 +10,13 @@ namespace SmartMoney
     public class ShellViewModel : Conductor<Screen>, IHandle<ShowAddAccountMessage>, 
         IHandle<ShowOverviewScreenMessage>, IHandle<ShowAccountDetailsMessage>
     {
+        private const string UserIdKey = "UserId";
         private readonly WelcomeScreenViewModel _welcomeScreenViewModel;
         private readonly AddAccountViewModel _addAccountViewModel;
         private readonly OverviewViewModel _overviewViewModel;
         private readonly AccountDetailsViewModel _accountDetailsViewModel;
         private readonly IUsersApi _usersApi;
-
-        public User CurrentUser { get; set; }
+        private readonly SessionService _sessionService;
 
         public ShellViewModel(
             WelcomeScreenViewModel welcomeScreenViewModel, 
@@ -24,6 +24,7 @@ namespace SmartMoney
             OverviewViewModel overviewViewModel,
             AccountDetailsViewModel accountDetailsViewModel,
             IUsersApi usersApi,
+            SessionService sessionService,
             IEventAggregator eventAggregator)
         {
             _welcomeScreenViewModel = welcomeScreenViewModel;
@@ -31,32 +32,47 @@ namespace SmartMoney
             _overviewViewModel = overviewViewModel;
             _accountDetailsViewModel = accountDetailsViewModel;
             _usersApi = usersApi;
+            _sessionService = sessionService;
             eventAggregator.Subscribe(this);
         }
 
         protected override async void OnActivate()
         {
             base.OnActivate();
-            CurrentUser = await GetSavedUser();
-            if (CurrentUser != null)
+            _sessionService.Currentuser = await GetSavedUser();
+            if (_sessionService.Currentuser != null)
             {
                 ActivateItem(_overviewViewModel);
             }
             else
             {
-                CurrentUser = await CreateUser();
+                _sessionService.Currentuser = await CreateUser();
+                SaveCurrentUser(_sessionService.Currentuser);
                 ActivateItem(_welcomeScreenViewModel);
             }
         }
 
-        private Task<User> CreateUser()
+        private static void SaveCurrentUser(User currentUser)
         {
-            return _usersApi.Createuser(new User {Email = "some@email.com"});
+            var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            localSettings.Values[UserIdKey] = currentUser.Id.ToString();
         }
 
         private static Task<User> GetSavedUser()
         {
-            return Task.Run(() => (User) null);
+            var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            User user = null;
+            if (localSettings.Values.ContainsKey(UserIdKey))
+            {
+                user = new User { Id = Guid.Parse(localSettings.Values[UserIdKey].ToString())};
+            }
+
+            return Task.Run(() => user);
+        }
+
+        private Task<User> CreateUser()
+        {
+            return _usersApi.CreateUser(new User {Email = "some@email.com"});
         }
 
         public void Handle(ShowAddAccountMessage message)
