@@ -22,8 +22,8 @@
                 <ColumnDefinition Width="100"/>
                 <ColumnDefinition Width="100"/>
             </Grid.ColumnDefinitions>
-            <TextBlock TextAlignment="Left" FontSize="15" Grid.Column="1" Text="Locatie"/>
-            <TextBlock TextAlignment="Right" FontSize="15" Grid.Column="2" Text="Suma"/>
+            <TextBlock TextAlignment="Left" FontSize="15" Grid.Column="0" Text="Locatie"/>
+            <TextBlock TextAlignment="Right" FontSize="15" Grid.Column="1" Text="Suma"/>
         </Grid>
         <ItemsControl Grid.Row="2" x:Name="Estimations" ItemsSource="{Binding Path=Estimations}" HorizontalContentAlignment="Stretch">
             <ItemsControl.ItemTemplate>
@@ -39,6 +39,6 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-        <Button x:Name="SaveEstimations">Salveaza estimari</Button>
+        <Button Grid.Row="2" x:Name="SaveEstimations">Salveaza estimari</Button>
     </Grid>
 </UserControl>
