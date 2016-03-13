@@ -32,7 +32,7 @@ namespace SmartMoneyJobRunner
             var estimation = new Estimation { StopId = stop.Id };
             var similarStops =
                 _smartMoneyDbContext.Stops.Where(otherStop => otherStop.Location == stop.Location).ToList();
-            var similarStopIds = similarStops.Select(stop =>stop.Id).ToArray();
+            var similarStopIds = similarStops.Select(similarStop =>similarStop.Id).ToArray();
             var transactions =
                 _smartMoneyDbContext.Transactions.Where(transaction => similarStopIds.Contains(transaction.StopId))
                     .ToList();
