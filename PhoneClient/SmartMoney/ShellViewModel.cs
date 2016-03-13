@@ -8,13 +8,15 @@ using SmartMoney.SmartmoneyAPI;
 namespace SmartMoney
 {
     public class ShellViewModel : Conductor<Screen>, IHandle<ShowAddAccountMessage>, 
-        IHandle<ShowOverviewScreenMessage>, IHandle<ShowAccountDetailsMessage>
+        IHandle<ShowOverviewScreenMessage>, IHandle<ShowAccountDetailsMessage>,
+        IHandle<ShowUpdateBalanceMessage>
     {
         private const string UserIdKey = "UserId";
         private readonly WelcomeScreenViewModel _welcomeScreenViewModel;
         private readonly AddAccountViewModel _addAccountViewModel;
         private readonly OverviewViewModel _overviewViewModel;
         private readonly AccountDetailsViewModel _accountDetailsViewModel;
+        private readonly UpdateBalanceViewModel _updateBalanceViewModel;
         private readonly IUsersApi _usersApi;
         private readonly SessionService _sessionService;
 
@@ -23,6 +25,7 @@ namespace SmartMoney
             AddAccountViewModel addAccountViewModel,
             OverviewViewModel overviewViewModel,
             AccountDetailsViewModel accountDetailsViewModel,
+            UpdateBalanceViewModel updateBalanceViewModel,
             IUsersApi usersApi,
             SessionService sessionService,
             IEventAggregator eventAggregator)
@@ -31,6 +34,7 @@ namespace SmartMoney
             _addAccountViewModel = addAccountViewModel;
             _overviewViewModel = overviewViewModel;
             _accountDetailsViewModel = accountDetailsViewModel;
+            _updateBalanceViewModel = updateBalanceViewModel;
             _usersApi = usersApi;
             _sessionService = sessionService;
             eventAggregator.Subscribe(this);
@@ -89,6 +93,12 @@ namespace SmartMoney
         {
             _accountDetailsViewModel.Account = message.Account;
             ActivateItem(_accountDetailsViewModel);
+        }
+
+        public void Handle(ShowUpdateBalanceMessage message)
+        {
+            _sessionService.CurrentAccountId = message.AccountId;
+            ActivateItem(_updateBalanceViewModel);
         }
     }
 }

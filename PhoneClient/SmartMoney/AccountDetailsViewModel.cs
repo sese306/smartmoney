@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Caliburn.Micro;
+using SmartMoney.Messages;
 using SmartMoney.Models;
 using SmartMoney.SmartmoneyAPI;
 
@@ -9,6 +10,7 @@ namespace SmartMoney
     public class AccountDetailsViewModel : Screen
     {
         private readonly ITransactionsApi _transactionsApi;
+        private readonly IEventAggregator _eventAggregator;
         private List<Transaction> _transactions;
         private Account _account;
 
@@ -34,9 +36,15 @@ namespace SmartMoney
             }
         }
 
-        public AccountDetailsViewModel(ITransactionsApi transactionsApi)
+        public AccountDetailsViewModel(ITransactionsApi transactionsApi, IEventAggregator eventAggregator)
         {
             _transactionsApi = transactionsApi;
+            _eventAggregator = eventAggregator;
+        }
+
+        public void UpdateBalance()
+        {
+            _eventAggregator.PublishOnUIThread(new ShowUpdateBalanceMessage { AccountId = Account.Id});
         }
 
         protected override async void OnActivate()

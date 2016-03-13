@@ -86,6 +86,12 @@
     <Compile Include="AddAccountView.xaml.cs">
       <DependentUpon>AddAccountView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\Estimation.cs" />
+    <Compile Include="SmartmoneyAPI\IEstimationsApi.cs" />
+    <Compile Include="UpdateBalanceView.xaml.cs">
+      <DependentUpon>UpdateBalanceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UpdateBalanceViewModel.cs" />
     <Compile Include="AddAccountViewModel.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -109,6 +115,7 @@
     <Compile Include="Messages\ShowAddAccountMessage.cs" />
     <Compile Include="Messages\ShowOverviewScreenMessage.cs" />
     <Compile Include="Messages\ShowAccountDetailsMessage.cs" />
+    <Compile Include="Messages\ShowUpdateBalanceMessage.cs" />
     <Compile Include="SmartmoneyAPI\IAccountsApi.cs" />
     <Compile Include="SmartmoneyAPI\IStopsApi.cs" />
     <Compile Include="SmartmoneyAPI\ITransactionsApi.cs" />
@@ -151,6 +158,10 @@
     <Page Include="ShellView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UpdateBalanceView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="WelcomeScreenView.xaml">
       <SubType>Designer</SubType>

@@ -14,5 +14,13 @@ namespace SmartMoney.Models
         {
             Id = Guid.NewGuid();
         }
+
+        public Transaction(Estimation estimation)
+            : this()
+        {
+            Timestamp = DateTime.Now;
+            Amount = estimation.Amount;
+            StopId = estimation.StopId;
+        }
     }
 }

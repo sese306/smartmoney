@@ -15,6 +15,7 @@ namespace SmartMoney
         private ITransactionsApi _transactionsApi;
         private IStopsApi _stopsApi;
         private IAccountsApi _accountsApi;
+        private IEstimationsApi _estimationsApi;
 
         public App()
         {
@@ -31,6 +32,7 @@ namespace SmartMoney
             _container.PerRequest<WelcomeScreenViewModel>();
             _container.PerRequest<OverviewViewModel>();
             _container.PerRequest<AccountDetailsViewModel>();
+            _container.PerRequest<UpdateBalanceViewModel>();
             _container.Singleton<SessionService>();
             _container.RegisterHandler(typeof (IUsersApi), "UsersApi",
                 container => _usersApi ?? (_usersApi = RestService.For<IUsersApi>("http://localhost:60113/")));
@@ -40,6 +42,8 @@ namespace SmartMoney
                 container => _stopsApi ?? (_stopsApi = RestService.For<IStopsApi>("http://localhost:60113/")));
             _container.RegisterHandler(typeof(IAccountsApi), "AccountsApi",
                 container => _accountsApi ?? (_accountsApi = RestService.For<IAccountsApi>("http://localhost:60113/")));
+            _container.RegisterHandler(typeof(IEstimationsApi), "EstimationsApi",
+                container => _estimationsApi ?? (_estimationsApi = RestService.For<IEstimationsApi>("http://localhost:60113/")));
         }
 
         protected override object GetInstance(Type service, string key)
