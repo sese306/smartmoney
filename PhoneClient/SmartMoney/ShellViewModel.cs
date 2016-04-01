@@ -50,6 +50,7 @@ namespace SmartMoney
             }
             else
             {
+
                 _sessionService.Currentuser = await CreateUser();
                 SaveCurrentUser(_sessionService.Currentuser);
                 ActivateItem(_welcomeScreenViewModel);
